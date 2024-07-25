@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Nube.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/nube_1.png-bb5e790c1767669a1ca4e70c9f94cdf6.stex"
+
+[sub_resource type="StreamTexture" id=4]
+load_path = "res://.import/nube_2.png-9bf50f66ee1fe9c561972b3f2e8a696b.stex"
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "moving",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8.5, 1 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Nube" type="KinematicBody2D" parent="."]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Nube"]
+frames = SubResource( 1 )
+animation = "moving"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Nube"]
+position = Vector2( 0.5, 0 )
+shape = SubResource( 2 )
+one_way_collision = true

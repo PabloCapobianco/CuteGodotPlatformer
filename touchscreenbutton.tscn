@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://button.svg" type="Texture" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+action = "ui_right"
+
+[node name="Sprite" type="Sprite" parent="TouchScreenButton"]
+position = Vector2( 3.8147e-06, 0 )
+scale = Vector2( 0.0628531, 0.0614035 )
+texture = ExtResource( 1 )

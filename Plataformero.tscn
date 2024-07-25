@@ -1,0 +1,221 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://iddle.png" type="Texture" id=1]
+[ext_resource path="res://Personaje.gd" type="Script" id=2]
+[ext_resource path="res://sprite_3.png" type="Texture" id=3]
+[ext_resource path="res://sprite_2.png" type="Texture" id=4]
+[ext_resource path="res://sprite_0.png" type="Texture" id=5]
+[ext_resource path="res://sprite_1.png" type="Texture" id=6]
+[ext_resource path="res://Cámara.gd" type="Script" id=7]
+[ext_resource path="res://fondo.png" type="Texture" id=8]
+[ext_resource path="res://nube/nube1.png" type="Texture" id=9]
+[ext_resource path="res://Nube.gd" type="Script" id=10]
+[ext_resource path="res://tile.png" type="Texture" id=11]
+[ext_resource path="res://nube/nube2.png" type="Texture" id=12]
+[ext_resource path="res://Nube2.gd" type="Script" id=13]
+[ext_resource path="res://nube/nube4.png" type="Texture" id=14]
+[ext_resource path="res://nube/nube3.png" type="Texture" id=15]
+[ext_resource path="res://tileg.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/celeste_colliding.png" type="Texture" id=17]
+[ext_resource path="res://pinches.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Touchscreen.tscn" type="PackedScene" id=19]
+
+[sub_resource type="RectangleShape2D" id=27]
+extents = Vector2( 3.72222, 8 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "Colliding",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Run",
+"speed": 7.97
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Salto",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=31]
+animations = [ {
+"frames": [ ExtResource( 9 ), ExtResource( 12 ), ExtResource( 15 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "moving",
+"speed": 4.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=32]
+extents = Vector2( 8.5, 1 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=34]
+points = PoolVector2Array( 32, 31.9676, 0.00997543, 32, 0, 0, 32, 0 )
+
+[sub_resource type="TileSet" id=30]
+0/name = "tile.png 0"
+0/texture = ExtResource( 11 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 2 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "tileg.png 1"
+1/texture = ExtResource( 16 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 32, 32 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 34 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 34 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[sub_resource type="RectangleShape2D" id=33]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Personaje" type="KinematicBody2D" parent="."]
+position = Vector2( 39, 114 )
+collision_mask = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Personaje"]
+position = Vector2( 1.5, 0.5 )
+shape = SubResource( 27 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Personaje"]
+frames = SubResource( 1 )
+animation = "Idle"
+
+[node name="Camera2D" type="Camera2D" parent="Personaje"]
+current = true
+smoothing_enabled = true
+editor_draw_screen = false
+editor_draw_drag_margin = true
+script = ExtResource( 7 )
+
+[node name="Col_izquierda" type="RayCast2D" parent="Personaje"]
+enabled = true
+cast_to = Vector2( -10, 0 )
+
+[node name="Col_derecha" type="RayCast2D" parent="Personaje"]
+enabled = true
+cast_to = Vector2( 10, 0 )
+
+[node name="Dash_timer" type="Timer" parent="Personaje"]
+wait_time = 0.785
+one_shot = true
+
+[node name="Nube" type="KinematicBody2D" parent="."]
+position = Vector2( 0, 57 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Nube"]
+position = Vector2( 0, -2 )
+frames = SubResource( 31 )
+animation = "moving"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Nube"]
+position = Vector2( 0.5, 0 )
+shape = SubResource( 32 )
+one_way_collision = true
+
+[node name="Fondo" type="Sprite" parent="."]
+position = Vector2( 90, -506.5 )
+scale = Vector2( 1.46875, 10.4187 )
+z_index = -1
+texture = ExtResource( 8 )
+
+[node name="CanvasLayer" parent="Fondo" instance=ExtResource( 19 )]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 30 )
+cell_size = Vector2( 16, 16 )
+show_collision = true
+collision_mask = 0
+format = 1
+tile_data = PoolIntArray( -131071, 1, 0, 262148, 0, 0, 393216, 0, 0, 458753, 0, 0, 458755, 0, 0, 524290, 0, 0 )
+
+[node name="Area2d" type="Area2D" parent="."]
+position = Vector2( 39, 118 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Inicio" type="CollisionShape2D" parent="Area2d"]
+position = Vector2( 1, 0 )
+shape = SubResource( 33 )
+
+[node name="Nube2" type="KinematicBody2D" parent="."]
+position = Vector2( 108, 12 )
+scale = Vector2( -1, 1 )
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Nube2"]
+position = Vector2( 0.5, 0 )
+shape = SubResource( 32 )
+one_way_collision = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Nube2"]
+position = Vector2( 0, -2 )
+frames = SubResource( 31 )
+animation = "moving"
+
+[node name="Pinche1" parent="." groups=["pinches"] instance=ExtResource( 18 )]
+position = Vector2( 77, 30 )
+
+[node name="Pinche2" parent="." groups=["pinches"] instance=ExtResource( 18 )]
+position = Vector2( 36, -58 )
+rotation = -3.14159
+
+[node name="Pinche3" parent="." groups=["pinches"] instance=ExtResource( 18 )]
+position = Vector2( 81, -21 )
+rotation = 1.5708
